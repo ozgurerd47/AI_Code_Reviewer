@@ -1,63 +1,160 @@
 # 🤖 AI-Powered GitHub Code Reviewer Bot
 
-An automated, serverless MLOps pipeline that acts as a **Senior AI Code Reviewer**. It automatically fetches Pull Request (PR) diffs, analyzes the changes using large language models via Hugging Face Inference API, and posts constructive code reviews directly to GitHub PRs.
+An automated, serverless MLOps pipeline that acts as a **Senior AI Code Reviewer**. The bot automatically retrieves Pull Request (PR) diffs, analyzes the changes using a large language model through the Hugging Face Inference API, and posts actionable review comments directly to GitHub.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Features
 
-- **Automated Diff Extraction:** Fetches only the changed lines (`git diff`) of a Pull Request using `PyGithub` to optimize context length and speed.
-- **Advanced LLM Code Analysis:** Powered by **Qwen-2.5-Coder-32B-Instruct** via Hugging Face Serverless Inference API.
-- **Senior Engineer Persona:** Detects security vulnerabilities (e.g., SQL injections, hardcoded credentials), performance bottlenecks, and clean code violations.
-- **Automated Feedback Loop:** Directly posts formatted Markdown reviews as GitHub PR comments.
-- **Secure & Configurable:** Environment variables managed securely via `.env` without exposing sensitive PATs or API keys.
+* **Automated PR Diff Extraction** – Retrieves only the modified lines from a Pull Request using `PyGithub` to reduce token usage and improve inference speed.
+* **LLM-Powered Code Review** – Uses **Qwen-2.5-Coder-32B-Instruct** via the Hugging Face Serverless Inference API.
+* **Senior Engineer Review Style** – Identifies potential bugs, security vulnerabilities, performance issues, and clean code violations while suggesting improvements.
+* **Automated Feedback** – Publishes structured Markdown review comments directly on the GitHub Pull Request.
+* **Secure Configuration** – Keeps GitHub and Hugging Face credentials safely managed with environment variables.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Language:** Python 3.10+
-- **APIs & SDKs:** `PyGithub`, `huggingface_hub`
-- **AI / NLP Model:** Qwen/Qwen2.5-Coder-32B-Instruct
-- **Security & Config:** `python-dotenv`
+| Category               | Technology                      |
+| ---------------------- | ------------------------------- |
+| **Language**           | Python 3.10+                    |
+| **GitHub Integration** | PyGithub                        |
+| **LLM API**            | Hugging Face Inference API      |
+| **Model**              | Qwen/Qwen2.5-Coder-32B-Instruct |
+| **Configuration**      | python-dotenv                   |
 
 ---
 
-## 🚀 Architecture Workflow
+## 🏗️ Architecture
 
-1. **Trigger:** A developer opens or updates a Pull Request.
-2. **Fetch:** `pr_reader.py` connects to GitHub and extracts the raw patch/diff.
-3. **Analyze:** `ai_reviewer.py` prompts the LLM to review the code for bugs, security issues, and bad practices.
-4. **Comment:** `main.py` posts the structured review back to the GitHub Pull Request automatically.
+```text
+Developer Opens/Updates PR
+           │
+           ▼
+    pr_reader.py
+   (Fetch PR Diff)
+           │
+           ▼
+   ai_reviewer.py
+ (LLM Code Analysis)
+           │
+           ▼
+       main.py
+(Post Review Comment)
+           │
+           ▼
+      GitHub Pull Request
+```
 
 ---
 
-## 🚀 Complete Setup & Usage Guide
+## ⚙️ Workflow
 
-Run all installation, configuration, and execution steps sequentially:
+1. A developer opens or updates a Pull Request.
+2. `pr_reader.py` retrieves the changed code from GitHub.
+3. `ai_reviewer.py` sends the diff to the LLM for analysis.
+4. The model reviews the code for:
+
+   * Bugs
+   * Security vulnerabilities
+   * Performance issues
+   * Clean code violations
+   * Best-practice improvements
+5. `main.py` posts the generated review back to the Pull Request.
+
+---
+
+## 🚀 Installation
+
+Clone the repository:
 
 ```bash
-# 1. Clone repository and enter directory
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
 cd YOUR_REPOSITORY_NAME
+```
 
-# 2. Create and activate virtual environment
+Create and activate a virtual environment:
+
+```bash
 python3 -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate
 
-# 3. Install required dependencies
+# Windows
+venv\Scripts\activate
+```
+
+Install the dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-# 4. Create your secret environment configuration file
+---
+
+## 🔐 Configuration
+
+Create your environment file:
+
+```bash
 cp .env.example .env
+```
 
-Open the .env file in your text editor and insert your actual credentials:
+Update the `.env` file with your credentials:
 
-GITHUB_TOKEN=ghp_your_actual_github_token_here
-HF_TOKEN=hf_your_actual_huggingface_token_here
-TARGET_REPO=username/target-repository-name
+```env
+GITHUB_TOKEN=ghp_your_github_token
+HF_TOKEN=hf_your_huggingface_token
+TARGET_REPO=username/repository-name
 TARGET_PR_ID=1
+```
 
-#5. Run the pipeline: 
+---
+
+## ▶️ Run
+
+Execute the pipeline:
+
+```bash
 python main.py
+```
 
+---
+
+## 📂 Project Structure
+
+```text
+.
+├── ai_reviewer.py      # Sends the PR diff to the LLM
+├── pr_reader.py        # Fetches Pull Request diffs
+├── main.py             # Pipeline entry point
+├── requirements.txt
+├── .env.example
+└── README.md
+```
+
+---
+
+## 📌 Example Pipeline
+
+```text
+Pull Request
+      │
+      ▼
+ GitHub API
+      │
+      ▼
+ PR Diff Extraction
+      │
+      ▼
+ Hugging Face API
+      │
+      ▼
+Qwen-2.5-Coder-32B-Instruct
+      │
+      ▼
+ Generated Review
+      │
+      ▼
+GitHub PR Comment
+```
