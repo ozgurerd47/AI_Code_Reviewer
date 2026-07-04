@@ -32,9 +32,32 @@ An automated, serverless MLOps pipeline that acts as a **Senior AI Code Reviewer
 
 ---
 
-## 📦 Installation & Setup
+## 🚀 Complete Setup & Usage Guide
 
-### 1. Clone the Repository
+Run all installation, configuration, and execution steps sequentially:
+
 ```bash
+# 1. Clone repository and enter directory
 git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
 cd YOUR_REPOSITORY_NAME
+
+# 2. Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+# 3. Install required dependencies
+pip install -r requirements.txt
+
+# 4. Create your secret environment configuration file
+cp .env.example .env
+
+Open the .env file in your text editor and insert your actual credentials:
+
+GITHUB_TOKEN=ghp_your_actual_github_token_here
+HF_TOKEN=hf_your_actual_huggingface_token_here
+TARGET_REPO=username/target-repository-name
+TARGET_PR_ID=1
+
+#5. Run the pipeline: 
+python main.py
+
