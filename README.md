@@ -125,13 +125,14 @@ python main.py
 
 ```text
 .
-├── ai_reviewer.py      # Sends the PR diff to the LLM
+├── github_connector.py # Handles GitHub authentication & connection
 ├── pr_reader.py        # Fetches Pull Request diffs
-├── main.py             # Pipeline entry point
-├── requirements.txt
-├── .env.example
-└── README.md
-```
+├── ai_reviewer.py      # Sends the PR diff to the LLM
+├── main.py             # Pipeline entry point & PR commenter
+├── requirements.txt    # Project dependencies
+├── .gitignore          # Security rules for secrets & venv
+├── .env.example        # Environment variables template
+└── README.md           # Project documentation
 
 ---
 
